@@ -9,7 +9,7 @@ on:
       - main
 env:
   AWS_REGION: ap-northeast-2
-  ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+  ECR_REGISTRY: x6q8k2h4
   ECR_REPOSITORY: 	project-web
   IMAGE_TAG: latest
 jobs:
