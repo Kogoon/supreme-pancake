@@ -42,7 +42,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         echo "##########BUILD START#########"
-        docker build -t $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG .
+        docker build -t $ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
         echo "########## BUILD END #########"
         docker push $ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG"
