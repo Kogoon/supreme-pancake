@@ -44,5 +44,6 @@ jobs:
         echo "##########BUILD START#########"
         docker build -t $ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
         echo "########## BUILD END #########"
+        echo "### PUSH $ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG ###"
         docker push $ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG"
