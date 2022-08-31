@@ -20,4 +20,4 @@ RUN python -c "from app import db; db.create_all()"
 
 ENV FLASK_APP=app
 
-CMD flask run --host 0.0.0.0
+CMD flask run --host 0.0.0.0 -p 80
