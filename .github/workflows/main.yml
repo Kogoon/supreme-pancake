@@ -10,7 +10,7 @@ on:
       
 env:
   AWS_REGION: us-east-1
-  ECR_REGISTRY: x6q8k2h4
+  ECR_REGISTRY: public.ecr.aws
   IMAGE_TAG: latest
 jobs:
   deploy:
@@ -36,8 +36,8 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR Public
       id: build-image
       env:
-        #ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-        ECR_REGISTRY: public.ecr.aws
+        ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+        #ECR_REGISTRY: public.ecr.aws
         REGISTRY_ALIAS: x6q8k2h4
         REPOSITORY: my-registry
         IMAGE_TAG: ${{ github.sha }}
