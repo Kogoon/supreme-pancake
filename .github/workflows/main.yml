@@ -9,8 +9,8 @@ on:
       - main
 env:
   AWS_REGION: ap-northeast-2
-  ECR_REGISTRY: x6q8k2h4
-  ECR_REPOSITORY: 	project-web
+  #ECR_REGISTRY: x6q8k2h4
+  ECR_REPOSITORY: 	x6q8k2h4/project-web
   IMAGE_TAG: latest
 jobs:
   deploy:
@@ -39,6 +39,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "::set-output name=image::$ECR_REPOSITORY:$IMAGE_TAG"
+        docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REPOSITORY:$IMAGE_TAG"
