@@ -42,5 +42,7 @@ jobs:
         echo "##########BUILD START#########"
         docker build -t $ECR_BUILD:$IMAGE_TAG .
         echo "########## BUILD END #########"
+        docker tag $ECR_BUILD:$IMAGE_TAG $ECR_PUSH:$IMAGE_TAG
+        echo "########## CHANGE TAG ##########"
         docker push $ECR_PUSH:$IMAGE_TAG
         echo "::set-output name=image::$ECR_BUILD:$IMAGE_TAG"
