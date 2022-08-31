@@ -10,6 +10,7 @@ on:
       
 env:
   AWS_REGION: ap-northeast-2
+  ECR_REGISTRY: x6q8k2h4
   IMAGE_TAG: latest
   
 jobs:
