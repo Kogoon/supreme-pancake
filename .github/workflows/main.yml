@@ -10,7 +10,7 @@ on:
 env:
   AWS_REGION: ap-northeast-2
   #ECR_REGISTRY: x6q8k2h4
-  ECR_REPOSITORY: 	x6q8k2h4/project-web
+  ECR_REPOSITORY: 	x6q8k2h4/my-registry
   IMAGE_TAG: latest
 jobs:
   deploy:
