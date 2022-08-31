@@ -7,11 +7,11 @@ on:
   pull_request:
     branches:
       - main
+      
 env:
   AWS_REGION: ap-northeast-2
-  ECR_PUSH: public.ecr.aws/x6q8k2h4/my-registry
-  ECR_BUILD: 	my-registry
   IMAGE_TAG: latest
+  
 jobs:
   deploy:
     name: Deploy
@@ -29,20 +29,22 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
 
-    - name: Login to Amazon ECR
-      id: login-ecr
+    - name: Login to Amazon ECR Public
+      id: login-ecr-public
       uses: aws-actions/amazon-ecr-login@v1
+      with: 
+        registry-type: public
 
-    - name: Build, tag, and push image to Amazon ECR
+    - name: Build, tag, and push image to Amazon ECR Public.
       id: build-image
       env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+        REGISTRY_ALIAS: kogoon-registry
+        REPOSITORY: my-registry
         IMAGE_TAG: ${{ github.sha }}
       run: |
         echo "##########BUILD START#########"
-        docker build -t $ECR_BUILD:$IMAGE_TAG .
+        docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
         echo "########## BUILD END #########"
-        docker tag $ECR_BUILD:$IMAGE_TAG $ECR_PUSH:$IMAGE_TAG
-        echo "########## CHANGE TAG ##########"
-        docker push $ECR_PUSH:$IMAGE_TAG
+        docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_BUILD:$IMAGE_TAG"
