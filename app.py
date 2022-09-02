@@ -7,7 +7,7 @@ from datetime import datetime
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
-apm = ElasticAPM(app)
+#apm = ElasticAPM(app)
 
 # or configure to use ELASTIC_APM in your application's settings
 from elasticapm.contrib.flask import ElasticAPM
