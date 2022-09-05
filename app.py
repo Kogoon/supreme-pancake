@@ -1,4 +1,6 @@
 #from elasticapm.contrib.flask import  ElasticAPM
+import logging
+
 from flask import Flask, jsonify, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -27,7 +29,7 @@ app.config['ELASTIC_APM'] = {
 'ENVIRONMENT': 'production',
 }
 
-apm = ElasticAPM(app)
+apm = ElasticAPM(app, logging=True)
 
 
 class Todo(db.Model):
