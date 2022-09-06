@@ -11,6 +11,7 @@ WORKDIR /root
 COPY ./static/ /root/static/
 COPY ./templates/ /root/templates/
 COPY ./app.py /root/app.py
+COPY ./requirements.txt /root/requirements.txt
 
 RUN pip install virtualenv
 RUN virtualenv venv
