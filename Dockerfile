@@ -8,8 +8,10 @@ WORKDIR /root
 # RUN apt-get -y install python3-pip
 
 # flask
-RUN git clone https://github.com/Kogoon/flask-Todo.git
-WORKDIR /root/flask-Todo
+COPY ./static/ /root/static/
+COPY ./templates/ /root/templates/
+COPY ./app.py /root/app.py
+
 RUN pip install virtualenv
 RUN virtualenv venv
 RUN . venv/bin/activate
