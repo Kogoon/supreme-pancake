@@ -42,11 +42,16 @@ jobs:
         #ECR_REGISTRY: public.ecr.aws
         REGISTRY_ALIAS: x6q8k2h4
         REPOSITORY: my-registry
+        DEPLOY_REPOSITORY: project-web
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        echo "##########BUILD START#########"
+        echo "######### BUILD START #########"
         docker build -t $ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
         echo "########## BUILD END #########"
         echo "### PUSH $ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG ###"
         docker push $ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG"
+        echo "########## CHANGE TAG FOR DEPLOY ##########"
+        docker tag $ECR_REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$REGISTRY_ALIAS/$DEPLOY_REPOSITORY:latest
+        docker push $ECR_REGISTRY/$REGISTRY_ALIAS/$DEPLOY_REPOSITORY:latest
+        echo "########## WORK END ##########"
